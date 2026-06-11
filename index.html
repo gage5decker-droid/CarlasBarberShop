@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carla's Barber Shop — A Classic Since Day One</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --burgundy:     #3D1A1A;
+    --burgundy-mid: #5C2A2A;
+    --burgundy-dim: #7A3535;
+    --ivory:        #F5EFE0;
+    --ivory-dark:   #EDE4CE;
+    --ivory-deeper: #E0D5BC;
+    --brass:        #B8843F;
+    --brass-light:  #D4A055;
+    --brass-dim:    #8A6030;
+    --ink:          #1C1410;
+    --ink-mid:      #3A2E28;
+    --sage:         #8A9E8A;
+    --red:          #C0392B;
+    --pole-white:   #F0EDE8;
+    --pole-red:     #C0392B;
+    --pole-blue:    #1A3A6B;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--ivory);
+    color: var(--ink);
+    font-family: 'Lora', serif;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 56px; height: 70px;
+    background: var(--burgundy);
+    border-bottom: 3px solid var(--brass);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 14px;
+    text-decoration: none;
+  }
+  .nav-scissors {
+    font-size: 22px; color: var(--brass);
+    transform: rotate(-45deg); display: block;
+  }
+  .nav-logo-text {
+    font-family: 'Abril Fatface', serif;
+    font-size: 20px; color: var(--ivory);
+    letter-spacing: 1px; line-height: 1;
+  }
+  .nav-logo-sub {
+    font-family: 'Lora', serif;
+    font-size: 10px; font-style: italic;
+    color: var(--brass-light); letter-spacing: 2px;
+    display: block; margin-top: 2px;
+  }
+
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    color: rgba(245,239,224,0.65); text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; font-weight: 500; letter-spacing: 2px;
+    text-transform: uppercase; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--brass-light); }
+
+  .nav-cta {
+    background: var(--brass); color: var(--ink);
+    padding: 10px 22px; border-radius: 2px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; font-weight: 600; letter-spacing: 1.5px;
+    text-transform: uppercase; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--brass-light); }
+
+  /* ── BARBER POLE DIVIDER ── */
+  .pole-divider {
+    height: 14px; width: 100%;
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--pole-red) 0px,
+      var(--pole-red) 10px,
+      var(--pole-white) 10px,
+      var(--pole-white) 20px,
+      var(--pole-blue) 20px,
+      var(--pole-blue) 30px,
+      var(--pole-white) 30px,
+      var(--pole-white) 40px
+    );
+    background-size: 56px 14px;
+    animation: pole-scroll 3s linear infinite;
+    flex-shrink: 0;
+  }
+  @keyframes pole-scroll {
+    from { background-position: 0 0; }
+    to   { background-position: 56px 0; }
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--burgundy);
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 70px 0 0;
+    position: relative; overflow: hidden;
+  }
+
+  /* Vintage texture overlay */
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(ellipse 60% 60% at 30% 50%, rgba(184,132,63,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* Big decorative scissor watermark */
+  .hero-watermark {
+    position: absolute; right: 48px; bottom: 40px;
+    font-size: 320px; color: rgba(245,239,224,0.03);
+    transform: rotate(-20deg);
+    pointer-events: none; user-select: none;
+    line-height: 1;
+  }
+
+  .hero-content {
+    padding: 80px 56px;
+    position: relative; z-index: 2;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(184,132,63,0.15);
+    border: 1px solid rgba(184,132,63,0.4);
+    border-radius: 2px; padding: 7px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px; font-weight: 600; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--brass-light);
+    margin-bottom: 32px;
+  }
+
+  .hero-headline {
+    font-family: 'Abril Fatface', serif;
+    font-size: clamp(52px, 6vw, 88px);
+    line-height: 0.95; color: var(--ivory);
+    margin-bottom: 24px; letter-spacing: -1px;
+  }
+  .hero-headline em {
+    font-style: italic; color: var(--brass-light);
+    font-family: 'Lora', serif; font-weight: 600;
+    font-size: 0.85em;
+    display: block; margin-top: 4px;
+  }
+
+  .hero-sub {
+    font-size: 16px; line-height: 1.8;
+    color: rgba(245,239,224,0.65); font-style: italic;
+    max-width: 440px; margin-bottom: 44px;
+    font-weight: 400;
+  }
+
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 56px; }
+
+  .btn-brass {
+    background: var(--brass); color: var(--ink);
+    padding: 15px 36px; border-radius: 2px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 600; letter-spacing: 1.5px;
+    text-transform: uppercase; text-decoration: none;
+    transition: all 0.2s; display: inline-block;
+  }
+  .btn-brass:hover { background: var(--brass-light); transform: translateY(-2px); }
+
+  .btn-ghost {
+    background: transparent; color: rgba(245,239,224,0.7);
+    padding: 15px 36px; border-radius: 2px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 500; letter-spacing: 1px;
+    text-decoration: none; transition: all 0.2s;
+    border: 1px solid rgba(245,239,224,0.2);
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--brass); color: var(--brass-light); }
+
+  .hero-stats {
+    display: flex; gap: 36px; flex-wrap: wrap;
+    padding-top: 36px;
+    border-top: 1px solid rgba(245,239,224,0.1);
+  }
+  .hero-stat { display: flex; flex-direction: column; }
+  .stat-num {
+    font-family: 'Abril Fatface', serif;
+    font-size: 38px; color: var(--ivory); line-height: 1;
+  }
+  .stat-num span { color: var(--brass); font-size: 20px; }
+  .stat-lbl {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; color: rgba(245,239,224,0.4);
+    letter-spacing: 1.5px; text-transform: uppercase;
+    margin-top: 4px; font-weight: 500;
+  }
+
+  /* Hero right — vintage card stack */
+  .hero-visual {
+    padding: 80px 56px 80px 20px;
+    display: flex; flex-direction: column; gap: 16px;
+    position: relative; z-index: 2;
+  }
+
+  .vintage-card {
+    background: var(--ivory);
+    border: 1px solid var(--ivory-deeper);
+    border-radius: 4px; padding: 28px 32px;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+    position: relative;
+  }
+  .vintage-card::before {
+    content: '';
+    position: absolute; top: 8px; left: 8px; right: -4px; bottom: -4px;
+    background: rgba(0,0,0,0.12); border-radius: 4px; z-index: -1;
+  }
+  .vc-quote {
+    font-style: italic; font-size: 15px; color: var(--ink-mid);
+    line-height: 1.7; margin-bottom: 16px;
+  }
+  .vc-author {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--brass-dim);
+  }
+  .vc-stars { color: var(--brass); font-size: 13px; margin-bottom: 10px; letter-spacing: 2px; }
+
+  .hero-open-badge {
+    background: var(--brass);
+    border-radius: 4px; padding: 18px 24px;
+    display: flex; align-items: center; gap: 14px;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+  }
+  .open-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: #2ECC71; flex-shrink: 0;
+    box-shadow: 0 0 8px rgba(46,204,113,0.6);
+    animation: pulse-green 2s ease-in-out infinite;
+  }
+  @keyframes pulse-green {
+    0%,100%{ box-shadow: 0 0 6px rgba(46,204,113,0.5); }
+    50%    { box-shadow: 0 0 14px rgba(46,204,113,0.9); }
+  }
+  .open-text { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: var(--ink); }
+  .open-text span { display: block; font-size: 11px; font-weight: 400; color: var(--ink-mid); margin-top: 2px; }
+
+  /* ── ABOUT ── */
+  .about-section {
+    background: var(--ivory);
+    padding: 104px 56px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+
+  .about-text .section-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px; font-weight: 600; letter-spacing: 3.5px;
+    text-transform: uppercase; color: var(--brass-dim);
+    margin-bottom: 20px; display: block;
+  }
+  .about-text h2 {
+    font-family: 'Abril Fatface', serif;
+    font-size: clamp(36px, 3.5vw, 52px);
+    color: var(--burgundy); line-height: 1.05;
+    margin-bottom: 24px; letter-spacing: -0.5px;
+  }
+  .about-text p {
+    font-size: 16px; line-height: 1.85; color: var(--ink-mid);
+    margin-bottom: 20px; font-weight: 400;
+  }
+  .about-text p:last-of-type { margin-bottom: 0; }
+  .about-text strong { color: var(--burgundy); font-weight: 600; }
+
+  /* About visual — framed stat block */
+  .about-visual {
+    background: var(--burgundy);
+    border-radius: 4px; padding: 52px 48px;
+    position: relative; overflow: hidden;
+    box-shadow: 8px 8px 0 var(--ivory-deeper);
+  }
+  .about-visual::after {
+    content: '✂';
+    position: absolute; bottom: -20px; right: 20px;
+    font-size: 160px; color: rgba(245,239,224,0.04);
+    transform: rotate(-30deg);
+    pointer-events: none;
+  }
+  .av-item {
+    padding: 28px 0;
+    border-bottom: 1px solid rgba(245,239,224,0.1);
+    position: relative; z-index: 1;
+  }
+  .av-item:first-child { padding-top: 0; }
+  .av-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .av-number {
+    font-family: 'Abril Fatface', serif;
+    font-size: 48px; color: var(--brass-light);
+    line-height: 1; margin-bottom: 6px;
+    letter-spacing: -1px;
+  }
+  .av-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; color: rgba(245,239,224,0.5);
+    letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500;
+  }
+  .av-desc {
+    font-style: italic; font-size: 14px;
+    color: rgba(245,239,224,0.55); line-height: 1.6;
+    margin-top: 6px;
+  }
+
+  /* ── SERVICES ── */
+  .services-section {
+    background: var(--ivory-dark);
+    padding: 104px 56px;
+    border-top: 1px solid var(--ivory-deeper);
+    border-bottom: 1px solid var(--ivory-deeper);
+  }
+  .services-header {
+    text-align: center; margin-bottom: 64px;
+  }
+  .services-header .section-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px; font-weight: 600; letter-spacing: 3.5px;
+    text-transform: uppercase; color: var(--brass-dim);
+    margin-bottom: 16px; display: block;
+  }
+  .services-header h2 {
+    font-family: 'Abril Fatface', serif;
+    font-size: clamp(36px, 3.5vw, 52px);
+    color: var(--burgundy); line-height: 1.05; letter-spacing: -0.5px;
+  }
+
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .service-card {
+    background: var(--ivory);
+    border: 1px solid var(--ivory-deeper);
+    border-top: 3px solid var(--burgundy);
+    border-radius: 2px; padding: 36px 32px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(61,26,26,0.1);
+  }
+  .svc-icon { font-size: 28px; margin-bottom: 18px; display: block; }
+  .svc-name {
+    font-family: 'Abril Fatface', serif;
+    font-size: 22px; color: var(--burgundy);
+    margin-bottom: 12px; line-height: 1.1;
+  }
+  .svc-desc {
+    font-size: 14px; color: var(--ink-mid);
+    line-height: 1.75; font-style: italic;
+  }
+  .svc-price {
+    margin-top: 18px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; font-weight: 600; letter-spacing: 1px;
+    color: var(--brass-dim); text-transform: uppercase;
+  }
+
+  /* ── REVIEWS ── */
+  .reviews-section {
+    background: var(--burgundy);
+    padding: 104px 56px;
+  }
+  .reviews-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 56px; flex-wrap: wrap; gap: 24px;
+  }
+  .reviews-header .section-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px; font-weight: 600; letter-spacing: 3.5px;
+    text-transform: uppercase; color: var(--brass);
+    margin-bottom: 16px; display: block;
+  }
+  .reviews-header h2 {
+    font-family: 'Abril Fatface', serif;
+    font-size: clamp(32px, 3vw, 48px);
+    color: var(--ivory); line-height: 1.05; letter-spacing: -0.5px;
+  }
+  .reviews-rating {
+    text-align: right;
+  }
+  .rr-num {
+    font-family: 'Abril Fatface', serif;
+    font-size: 52px; color: var(--brass-light); line-height: 1;
+  }
+  .rr-stars { color: var(--brass); font-size: 18px; letter-spacing: 3px; margin-bottom: 4px; }
+  .rr-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; color: rgba(245,239,224,0.4);
+    letter-spacing: 1px;
+  }
+
+  .reviews-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .review-card {
+    background: rgba(245,239,224,0.05);
+    border: 1px solid rgba(245,239,224,0.1);
+    border-radius: 4px; padding: 32px;
+    transition: background 0.25s, border-color 0.25s;
+  }
+  .review-card:hover {
+    background: rgba(245,239,224,0.09);
+    border-color: rgba(184,132,63,0.4);
+  }
+  .rc-stars { color: var(--brass); font-size: 14px; letter-spacing: 2px; margin-bottom: 16px; }
+  .rc-text {
+    font-style: italic; font-size: 15px;
+    color: rgba(245,239,224,0.75); line-height: 1.75;
+    margin-bottom: 24px; flex: 1;
+  }
+  .rc-author {
+    border-top: 1px solid rgba(245,239,224,0.08);
+    padding-top: 18px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .rc-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--burgundy-mid);
+    border: 1px solid rgba(184,132,63,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Abril Fatface', serif;
+    font-size: 14px; color: var(--brass-light);
+    flex-shrink: 0;
+  }
+  .rc-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; font-weight: 600; color: rgba(245,239,224,0.7);
+    letter-spacing: 0.5px;
+  }
+  .rc-when { font-size: 11px; color: rgba(245,239,224,0.3); margin-top: 2px; }
+
+  /* ── HOURS & LOCATION ── */
+  .info-section {
+    background: var(--ivory);
+    padding: 104px 56px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px;
+  }
+
+  .info-block .section-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px; font-weight: 600; letter-spacing: 3.5px;
+    text-transform: uppercase; color: var(--brass-dim);
+    margin-bottom: 20px; display: block;
+  }
+  .info-block h3 {
+    font-family: 'Abril Fatface', serif;
+    font-size: 36px; color: var(--burgundy);
+    margin-bottom: 32px; line-height: 1;
+  }
+
+  .hours-list { display: flex; flex-direction: column; gap: 0; }
+  .hours-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 0; border-bottom: 1px solid var(--ivory-deeper);
+    font-size: 15px;
+  }
+  .hours-row:first-child { border-top: 1px solid var(--ivory-deeper); }
+  .hours-day { font-weight: 600; color: var(--ink); }
+  .hours-time { color: var(--ink-mid); font-style: italic; }
+  .hours-closed { color: var(--burgundy-dim); font-style: italic; }
+
+  .location-details { display: flex; flex-direction: column; gap: 24px; }
+  .loc-item { display: flex; gap: 16px; align-items: flex-start; }
+  .loc-icon {
+    width: 40px; height: 40px; flex-shrink: 0;
+    background: var(--ivory-dark); border: 1px solid var(--ivory-deeper);
+    border-radius: 2px; display: flex; align-items: center;
+    justify-content: center; font-size: 17px;
+  }
+  .loc-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--brass-dim); margin-bottom: 4px;
+  }
+  .loc-value { font-size: 15px; color: var(--ink); font-weight: 500; }
+  .loc-value a { color: var(--burgundy); text-decoration: none; transition: color 0.2s; }
+  .loc-value a:hover { color: var(--brass-dim); }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: var(--brass);
+    padding: 80px 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 40px; flex-wrap: wrap;
+    position: relative; overflow: hidden;
+  }
+  .cta-section::before {
+    content: '✂';
+    position: absolute; right: 40px; top: 50%;
+    transform: translateY(-50%) rotate(-45deg);
+    font-size: 200px; color: rgba(28,20,16,0.06);
+    pointer-events: none;
+  }
+  .cta-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px; font-weight: 600; letter-spacing: 3px;
+    text-transform: uppercase; color: rgba(28,20,16,0.5);
+    margin-bottom: 12px;
+  }
+  .cta-title {
+    font-family: 'Abril Fatface', serif;
+    font-size: clamp(30px, 3.5vw, 48px);
+    color: var(--ink); line-height: 1.05; letter-spacing: -0.5px;
+  }
+  .cta-sub {
+    font-style: italic; font-size: 15px;
+    color: rgba(28,20,16,0.6); margin-top: 10px; line-height: 1.6;
+  }
+  .btn-dark {
+    background: var(--ink); color: var(--ivory);
+    padding: 16px 36px; border-radius: 2px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 600; letter-spacing: 1.5px;
+    text-transform: uppercase; text-decoration: none;
+    transition: all 0.2s; white-space: nowrap;
+    flex-shrink: 0; position: relative; z-index: 1;
+  }
+  .btn-dark:hover { background: var(--burgundy); transform: translateY(-2px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    padding: 40px 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 20px;
+  }
+  .footer-name {
+    font-family: 'Abril Fatface', serif;
+    font-size: 18px; color: rgba(245,239,224,0.5);
+    letter-spacing: 0.5px;
+  }
+  .footer-copy {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; color: rgba(245,239,224,0.25);
+  }
+  .footer-links { display: flex; gap: 24px; list-style: none; }
+  .footer-links a {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; color: rgba(245,239,224,0.3);
+    text-decoration: none; transition: color 0.2s;
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+  .footer-links a:hover { color: var(--brass); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding-top: 70px; }
+    .hero-visual { padding: 0 24px 60px; }
+    .hero-content { padding: 60px 24px 40px; }
+    .about-section, .info-section { grid-template-columns: 1fr; gap: 48px; padding: 72px 24px; }
+    .services-section, .reviews-section { padding: 72px 24px; }
+    .services-grid, .reviews-grid { grid-template-columns: 1fr; }
+    .cta-section { padding: 60px 24px; flex-direction: column; align-items: flex-start; }
+    footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="#" class="nav-logo">
+    <span class="nav-scissors">✂</span>
+    <div>
+      <span class="nav-logo-text">Carla's</span>
+      <span class="nav-logo-sub">Barber Shop</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#hours">Hours</a></li>
+  </ul>
+  <a href="tel:+15151234567" class="nav-cta">Call to Book</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" id="home">
+  <div class="hero-watermark" aria-hidden="true">✂</div>
+
+  <div class="hero-content">
+    <div class="hero-badge">✂ &nbsp; 40 Years of Craft</div>
+    <h1 class="hero-headline">
+      A Great Cut.<br>Even Better<br><em>Conversation.</em>
+    </h1>
+    <p class="hero-sub">
+      The kind of barbershop you didn't think existed anymore — where Carla knows your name, your style, and probably your whole life story by the time you're out the door.
+    </p>
+    <div class="hero-actions">
+      <a href="tel:+15151234567" class="btn-brass">Call to Book</a>
+      <a href="#about" class="btn-ghost">Our Story</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="stat-num">40<span>+</span></span>
+        <span class="stat-lbl">Years Experience</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-num">5.0</span>
+        <span class="stat-lbl">Google Rating</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-num">100<span>%</span></span>
+        <span class="stat-lbl">Would Return</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="vintage-card">
+      <div class="vc-stars">★★★★★</div>
+      <p class="vc-quote">"It is a throwback establishment that reminds me of the barber shops of my youth. Carla will give you a great cut at an affordable price, make you laugh, and let you choose your favorite episode of The Andy Griffith Show."</p>
+      <span class="vc-author">— Michael Shubatt, long-time regular</span>
+    </div>
+    <div class="hero-open-badge">
+      <div class="open-dot"></div>
+      <div class="open-text">
+        Open Today
+        <span>Walk-ins Welcome · Call Ahead for Best Times</span>
+      </div>
+    </div>
+    <div class="vintage-card">
+      <div class="vc-stars">★★★★★</div>
+      <p class="vc-quote">"Carla is the nicest and most friendly lady I've ever met. Her prices are extremely low, especially for her 40 years of experience."</p>
+      <span class="vc-author">— Holly Bertsch</span>
+    </div>
+  </div>
+</section>
+
+<!-- Barber Pole Divider -->
+<div class="pole-divider" aria-hidden="true"></div>
+
+<!-- ── ABOUT ── -->
+<section class="about-section" id="about">
+  <div class="about-text">
+    <span class="section-label">About Carla's</span>
+    <h2>A True Neighborhood Barbershop</h2>
+    <p>
+      Walk in and you'll immediately know you're somewhere special. There's a <strong>barber pole out front</strong>, the TV might be playing The Andy Griffith Show, and Carla — with over 40 years behind the chair — will greet you like she's been expecting you.
+    </p>
+    <p>
+      This isn't a chain. There are no apps to download or strangers touching your hair. It's just <strong>Carla, her craft, and a genuine love for the people she serves.</strong> Customers who came in once have come back for years. Some call her a dear friend.
+    </p>
+    <p>
+      She's patient, warm, funny, and precise. She adapts to your style and actually listens. And when you leave, your hair will look great and your mood will be better than when you walked in.
+    </p>
+  </div>
+
+  <div class="about-visual">
+    <div class="av-item">
+      <div class="av-number">40<sup style="font-size:22px">+</sup></div>
+      <div class="av-label">Years of Experience</div>
+      <div class="av-desc">Four decades behind the chair — Carla has seen every style, trend, and hairline.</div>
+    </div>
+    <div class="av-item">
+      <div class="av-number">5.0</div>
+      <div class="av-label">Perfect Google Rating</div>
+      <div class="av-desc">Every single reviewer gave five stars. Not one complaint in the whole record.</div>
+    </div>
+    <div class="av-item">
+      <div class="av-number">1</div>
+      <div class="av-label">Barber. All of her.</div>
+      <div class="av-desc">You're not getting "whoever's available." You're getting Carla, every time.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Barber Pole Divider -->
+<div class="pole-divider" aria-hidden="true"></div>
+
+<!-- ── SERVICES ── -->
+<section class="services-section" id="services">
+  <div class="services-header">
+    <span class="section-label">What We Offer</span>
+    <h2>Simple, Honest Pricing</h2>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="svc-icon">✂</span>
+      <div class="svc-name">Men's Haircut</div>
+      <p class="svc-desc">A proper cut, tailored to how you actually want to look. Carla listens, adapts, and delivers every time.</p>
+      <div class="svc-price">Call for Pricing</div>
+    </div>
+    <div class="service-card">
+      <span class="svc-icon">🪒</span>
+      <div class="svc-name">Shave & Trim</div>
+      <p class="svc-desc">Clean, close, and comfortable. The kind of shave that reminds you why barbershops still exist.</p>
+      <div class="svc-price">Call for Pricing</div>
+    </div>
+    <div class="service-card">
+      <span class="svc-icon">👦</span>
+      <div class="svc-name">Kids' Cuts</div>
+      <p class="svc-desc">Patient and kind with little ones — Carla has a gift for putting kids (and their parents) at ease.</p>
+      <div class="svc-price">Call for Pricing</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── REVIEWS ── -->
+<section class="reviews-section" id="reviews">
+  <div class="reviews-header">
+    <div>
+      <span class="section-label">Customer Reviews</span>
+      <h2>What the Regulars Say</h2>
+    </div>
+    <div class="reviews-rating">
+      <div class="rr-stars">★★★★★</div>
+      <div class="rr-num">5.0</div>
+      <div class="rr-label">Google Rating · All Verified</div>
+    </div>
+  </div>
+
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="rc-stars">★★★★★</div>
+      <p class="rc-text">Carla gave an excellent cut and truly cares about getting to know you and adapts to your style. Fun, light-hearted conversations. Will be back.</p>
+      <div class="rc-author">
+        <div class="rc-avatar">A</div>
+        <div>
+          <div class="rc-name">Andrew</div>
+          <div class="rc-when">1 year ago</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="rc-stars">★★★★★</div>
+      <p class="rc-text">Absolutely amazing. Carla did a great cut along with being cheerful the whole time. She kept great conversation the whole time, while making my hair look amazing. 10/10 experience.</p>
+      <div class="rc-author">
+        <div class="rc-avatar">S</div>
+        <div>
+          <div class="rc-name">Sean</div>
+          <div class="rc-when">9 months ago</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="rc-stars">★★★★★</div>
+      <p class="rc-text">Shop is nostalgic with neat barber pole outside the door. Got a great cut. Nice lady and good conversation. Will definitely go back.</p>
+      <div class="rc-author">
+        <div class="rc-avatar">R</div>
+        <div>
+          <div class="rc-name">Ray Ward</div>
+          <div class="rc-when">1 year ago</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="rc-stars">★★★★★</div>
+      <p class="rc-text">I have been going to Carla's for many years. It is a throwback establishment that reminds me of the barber shops of my youth. A great cut at an affordable price — and she'll make you laugh.</p>
+      <div class="rc-author">
+        <div class="rc-avatar">M</div>
+        <div>
+          <div class="rc-name">Michael Shubatt</div>
+          <div class="rc-when">Long-time regular</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="rc-stars">★★★★★</div>
+      <p class="rc-text">Place was welcoming and smelled amazing! Carla was wonderful and patient. Highly recommend — I'll be going in for a trim myself!</p>
+      <div class="rc-author">
+        <div class="rc-avatar">T</div>
+        <div>
+          <div class="rc-name">Tina Wilson</div>
+          <div class="rc-when">1 year ago</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="rc-stars">★★★★★</div>
+      <p class="rc-text">Carla's Barbershop is a beautiful little studio that brings back memories of my childhood. A true barbershop, with a kind barber that I personally love talking to.</p>
+      <div class="rc-author">
+        <div class="rc-avatar">D</div>
+        <div>
+          <div class="rc-name">Dan Brachman</div>
+          <div class="rc-when">3 years ago</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Barber Pole Divider -->
+<div class="pole-divider" aria-hidden="true"></div>
+
+<!-- ── HOURS & LOCATION ── -->
+<section class="info-section" id="hours">
+  <div class="info-block">
+    <span class="section-label">Hours</span>
+    <h3>Come On In</h3>
+    <div class="hours-list">
+      <div class="hours-row">
+        <span class="hours-day">Monday</span>
+        <span class="hours-time">9:00 AM – 5:00 PM</span>
+      </div>
+      <div class="hours-row">
+        <span class="hours-day">Tuesday</span>
+        <span class="hours-time">9:00 AM – 5:00 PM</span>
+      </div>
+      <div class="hours-row">
+        <span class="hours-day">Wednesday</span>
+        <span class="hours-time">9:00 AM – 5:00 PM</span>
+      </div>
+      <div class="hours-row">
+        <span class="hours-day">Thursday</span>
+        <span class="hours-time">9:00 AM – 5:00 PM</span>
+      </div>
+      <div class="hours-row">
+        <span class="hours-day">Friday</span>
+        <span class="hours-time">9:00 AM – 5:00 PM</span>
+      </div>
+      <div class="hours-row">
+        <span class="hours-day">Saturday</span>
+        <span class="hours-time">9:00 AM – 2:00 PM</span>
+      </div>
+      <div class="hours-row">
+        <span class="hours-day">Sunday</span>
+        <span class="hours-closed">Closed</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-block">
+    <span class="section-label">Find Us</span>
+    <h3>Location & Contact</h3>
+    <div class="location-details">
+      <div class="loc-item">
+        <div class="loc-icon">📍</div>
+        <div>
+          <div class="loc-label">Address</div>
+          <div class="loc-value">123 Main Street, Des Moines, Iowa</div>
+        </div>
+      </div>
+      <div class="loc-item">
+        <div class="loc-icon">📞</div>
+        <div>
+          <div class="loc-label">Phone</div>
+          <div class="loc-value"><a href="tel:+15151234567">(515) 123-4567</a></div>
+        </div>
+      </div>
+      <div class="loc-item">
+        <div class="loc-icon">🚪</div>
+        <div>
+          <div class="loc-label">Walk-ins</div>
+          <div class="loc-value">Always welcome — call ahead for busy days</div>
+        </div>
+      </div>
+      <div class="loc-item">
+        <div class="loc-icon">🪮</div>
+        <div>
+          <div class="loc-label">Look for the Sign</div>
+          <div class="loc-value">Red & white barber pole out front — you can't miss it</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<div class="cta-section">
+  <div>
+    <div class="cta-eyebrow">Ready for a Great Cut?</div>
+    <h2 class="cta-title">Come See Carla.<br>You'll Be Back.</h2>
+    <p class="cta-sub">Walk-ins welcome. Just look for the barber pole.</p>
+  </div>
+  <a href="tel:+15151234567" class="btn-dark">Call to Book — (515) 123-4567</a>
+</div>
+
+<!-- Barber Pole Divider -->
+<div class="pole-divider" aria-hidden="true"></div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-name">Carla's Barber Shop</div>
+  <p class="footer-copy">© 2025 Carla's Barber Shop · Des Moines, Iowa</p>
+  <ul class="footer-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#hours">Hours</a></li>
+  </ul>
+</footer>
+
+<script>
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.boxShadow = window.scrollY > 20
+      ? '0 2px 24px rgba(28,20,16,0.25)'
+      : 'none';
+  });
+</script>
+</body>
+</html>
